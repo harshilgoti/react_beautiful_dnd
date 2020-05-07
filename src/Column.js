@@ -43,7 +43,7 @@ export default class Column extends React.Component{
         <Draggable 
         draggableId ={this.props.column.id} 
         index={this.props.index}
-       // isDrageDisabled={isDrageDisabled}
+        isDragDisabled={this.props.isDragDisabled}
         >
         {(provided,snapshot)=>(
         <Container
@@ -66,7 +66,8 @@ export default class Column extends React.Component{
         {...provided.droppableProps}
         isDraggingOver={snapshot.isDraggingOver}
         >
-        {this.props.tasks.map((task,i)=><Task key={task.id} task={task} index={i}/>)}</TaskList>
+        {this.props.tasks.map((task,i)=><Task key={task.id} task={task} index={i}   isDragDisabled={this.props.isDragDisabled}/>)}
+        </TaskList>
 
         )}
         </Droppable>

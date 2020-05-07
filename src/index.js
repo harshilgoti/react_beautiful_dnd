@@ -68,16 +68,23 @@ class App extends React.Component{
 
 const start = this.state.columns[source.droppableId]
 const finish = this.state.columns[destination.droppableId]
+console.log("start",start,finish)
 
 if(start===finish){
 const newTaskIds = Array.from(start.taskIds)
 newTaskIds.splice(source.index,1)
 newTaskIds.splice(destination.index,0,draggableId)
 
+console.log("newTaskIds",newTaskIds)
+
+
 const newColumn={
   ...start,
   taskIds:newTaskIds
 }
+
+console.log("newColumn",newColumn)
+
 
 const newState = {
   ...this.state,
@@ -86,8 +93,10 @@ const newState = {
     [newColumn.id]:newColumn
   }
 }
+console.log("newState",newState)
 
 this.setState(newState)
+
 return;
 }
 
@@ -116,13 +125,12 @@ const newState={
   }
 }
 
-this.setState(newState)
-
+  this.setState(newState)
 
   }
 
     render(){
-      console.log("state",this.state)
+      console.log("stateaaaaaaaa",this.state)
     return <DragDropContext 
     onDragStart={this.onDragStart}
     onDragUpdate={this.onDragUpdate}
@@ -140,16 +148,23 @@ this.setState(newState)
         >
             {this.state.columnOrder.map((columnId,i)=>{
               const column = this.state.columns[columnId]
+               //console.log("columnId",columnId)
 
-              console.log("column",column)
+               console.log("column",column)
               const tasks = column.taskIds.map(taskId=>this.state.task[taskId])
-              console.log("task",tasks)
+               console.log("task",tasks)
 
-              const isDropDisabled=i<this.state.homeIndex
+              const isDragDisabled= columnId==="columns-3"
 
-              console.log("isDropDisabled",isDropDisabled)
+               console.log("isDragDisabled",isDragDisabled)
 
-              return <Column key={column.id} column={column} tasks={tasks} isDropDisabled={isDropDisabled} index={i}/>
+              return <Column 
+                      key={column.id} 
+                      column={column} 
+                      tasks={tasks} 
+                      isDragDisabled={isDragDisabled} 
+                      index={i}
+                    />
             })}
             {provided.placeholder}
             </Container>
